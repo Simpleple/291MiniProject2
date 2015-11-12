@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 
@@ -55,5 +56,15 @@ def readAll():
     while sys.stdin and readOnePiece(pieceNum):
         pieceNum += 1
 
+def clearFiles():
+    try:
+        os.remove("review.txt")
+        os.remove("scores.txt")
+        os.remove("pterms.txt")
+        os.remove("rterms.txt")
+    except:
+        pass
+
+clearFiles()
 readAll()
 
