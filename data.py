@@ -5,21 +5,21 @@ import sys
 def readOnePiece(pieceNum, index = 1):
     line = sys.stdin.readline()
     if index == 11:
-        writeToFile("review.txt", '\n')
+        writeToFile("reviews.txt", '\n')
         return True
-    if line == '\n':
+    if line == '\n' or len(line) == 0:
         return False
     if index == 1:
-        writeToFile("review.txt", str(pieceNum))
+        writeToFile("reviews.txt", str(pieceNum))
     if index == 2:
         writeTerms(line, pieceNum, "pterms.txt")
     if index == 7:
         writeScore(line, pieceNum)
     if index == 9:
         writeTerms(line, pieceNum, "rterms.txt")
-    writeToFile("review.txt", ",")
+    writeToFile("reviews.txt", ",")
 
-    writeToFile("review.txt", getInfoFromStdin(line, index))
+    writeToFile("reviews.txt", getInfoFromStdin(line, index))
     readOnePiece(pieceNum, index + 1)
     return True
             
@@ -58,7 +58,7 @@ def readAll():
 
 def clearFiles():
     try:
-        os.remove("review.txt")
+        os.remove("reviews.txt")
         os.remove("scores.txt")
         os.remove("pterms.txt")
         os.remove("rterms.txt")

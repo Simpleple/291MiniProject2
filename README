@@ -7,11 +7,20 @@ Phase 1:
       runs, so the removing of existed output files ensures the 
       correctness of the indexing.
 
+      Suppose raw review data is stored in data.txt, use following
+      command to prepare data files.
+      cat data.txt | python3 data.py
+
       reviews.txt, pterms.txt, rterms.txt, scores.txt
       These four files are created using the small data file with only
       10 recores provided on eclass.
 
 Phase 2:
+      Use the following commands to sort the files built in Phase 1.
+      sort -o pterms.txt pterms.txt
+      sort -o rterms.txt rterms.txt
+      sort -o scores.txt scores.txt
+
       formatting.py
       This file reads from txt files created in Phase 1 and writes the 
       data to another file into the format db_load expects.
