@@ -39,7 +39,7 @@ Phase 2:
       created by db_load command and the correct format txt files
       above. 
       The commands are as follows:
-      	  db_load -T -t hash -f rw.txt rw.idx
-	  db_load -T -t btree -f pt.txt pt.idx
-	  db_load -T -t btree -f rt.txt rt.idx
-	  db_load -T -t btree -f sc.txt sc.idx
+      	  db_load -T -c duplicates=1 -t hash -f rw.txt rw.idx
+	  db_load -T -c duplicates=1 -t btree -f pt.txt pt.idx
+	  db_load -T -c duplicates=1 -t btree -f rt.txt rt.idx
+	  db_load -T -c duplicates=1 -t btree -f sc.txt sc.idx
