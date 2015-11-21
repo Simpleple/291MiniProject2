@@ -2,30 +2,31 @@ import os
 import re
 import sys
 
-def readOnePiece(pieceNum, index = 1):
+def readOnePiece(pieceNum, reviews, pterms, rterms, scores, index = 1):
     line = sys.stdin.readline()
     if index == 11:
-        writeToFile("reviews.txt", '\n')
+        writeToFile(reviews, '\n')
         return True
     if line == '\n' or len(line) == 0:
         return False
     if index == 1:
-        writeToFile("reviews.txt", str(pieceNum))
+        writeToFile(reviews, str(pieceNum))
     if index == 2:
-        writeTerms(line, pieceNum, "pterms.txt")
+        writeTerms(line, pieceNum, pterms)
     if index == 7:
-        writeScore(line, pieceNum)
+        writeScore(line, pieceNum, scores)
     if index == 9:
-        writeTerms(line, pieceNum, "rterms.txt")
-    writeToFile("reviews.txt", ",")
+        writeTerms(line, pieceNum, rterms)
+    if index == 10:
+        writeTerms(line, pieceNum, rterms)
+    writeToFile(reviews, ",")
 
-    writeToFile("reviews.txt", getInfoFromStdin(line, index))
-    readOnePiece(pieceNum, index + 1)
+    writeToFile(reviews, getInfoFromStdin(line, index))
+    readOnePiece(pieceNum, reviews, pterms, rterms, scores, index + 1)
     return True
             
 def writeToFile(filename, content):
-    with open(filename, 'a') as file:
-        file.write(content)
+    filename.write(content)
 
 def getInfoFromStdin(line, index):
     line = findContentOfLine(line)
@@ -46,15 +47,19 @@ def writeTerms(terms, pieceNum, filename):
             writeToFile(filename, term.lower()+",")
             writeToFile(filename, str(pieceNum)+"\n")
 
-def writeScore(scores, pieceNum):
-    scores = findContentOfLine(scores)
-    writeToFile("scores.txt", scores+",")
-    writeToFile("scores.txt", str(pieceNum)+"\n")
+def writeScore(line, pieceNum, scores):
+    line = findContentOfLine(line)
+    writeToFile(scores, line+",")
+    writeToFile(scores, str(pieceNum)+"\n")
 
 def readAll():
-    pieceNum = 1
-    while sys.stdin and readOnePiece(pieceNum):
-        pieceNum += 1
+    with open("reviews.txt", 'a') as review:
+        with open("pterms.txt", 'a') as pterms:
+            with open("rterms.txt", 'a') as rterms:
+                with open("scores.txt", 'a') as scores:            
+                    pieceNum = 1
+                    while sys.stdin and readOnePiece(pieceNum, review, pterms, rterms, scores):
+                        pieceNum += 1
 
 def clearFiles():
     try:

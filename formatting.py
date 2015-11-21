@@ -10,9 +10,9 @@ except:
     pass
 
 with open(inputFile, "r") as f1:
-    for line in f1:
-        line = line.strip("\n")
-        comma = line.find(",")
-        with open(outputFile, "a") as f2:
+    with open(outputFile, "a") as f2:
+        for line in f1:
+            line = line.strip("\n")
+            comma = line.find(",")
             f2.write(line[:comma]+"\n")
             f2.write(line[comma+1:]+"\n")
