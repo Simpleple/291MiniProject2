@@ -189,6 +189,7 @@ def dealWithInequalities(query):
 #print(exactSearch("soundtrack", "pt.idx"))
 #print(readQuery("iiiiii"))
 
+print(readQuery("soundtrack rscore > 4"))
 query = ""
 while query != "quit":
     query = sys.stdin.readline().split("\n")[0]
