@@ -3,6 +3,7 @@ import sys
 import datetime
 import time
 import re
+import textwrap
 
 # the key in exactSearch, partialSearch and rangeSearch represents
 # for the searchKey
@@ -193,5 +194,22 @@ query = ""
 while query != "quit":
     query = sys.stdin.readline().split("\n")[0]
     resultSet = sorted(list(dealWithInequalities(query)))
+    #reviewIDs = sorted(list(readQuery(query)))
+    index = 0
     for recno in resultSet:
-        print(getFullRecord(recno).decode('utf-8'))
+        #print(getFullRecord(recno).decode('utf-8'))
+        print(textwrap.fill("Review ID: " + str(resultSet[index]), 80))
+        print(textwrap.fill("Product ID: " + getFullRecord(recno).decode('utf-8').split(",")[0].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Product Title: " + getFullRecord(recno).decode('utf-8').split("\"")[1].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Product price: " + re.sub('\"[^\"]+\"', '\"\"', getFullRecord(recno).decode('utf-8')).split(",")[2].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review User ID: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8')).split(",")[3].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review Profile Name: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8'), count=1).split(",")[4][1:-1].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review Helpfulness: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8')).split(",")[5].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review Score: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8')).split(",")[6].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review time: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8')).split(",")[7].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review Summary: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8'), count=2).split(",")[8][1:-1].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        print(textwrap.fill("Review Text: " + re.sub('\"[^"]+\"', '\"\"', getFullRecord(recno).decode('utf-8'), count=3).split(",", 9)[9][1:-1].replace("&quot;", "\"").replace("\\\\", "\\"), 80))
+        
+        print()
+        #print(getFullRecord(recno).decode('utf-8'))
+        index = index + 1
